@@ -1,6 +1,8 @@
 # ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions
 
 Official repository of **ChatCaptioner**.
+We discover the powerful questioning ability of LLMs and their great potential for acquiring information effectively.
+As an exploration, we introduce ChatCaptioner in image captioning.
 ChatCaptioner enrichs the image caption of BLIP-2 by 
 prompting ChatGPT to keep asking informative questions to BLIP-2 
 and summarize the conversation at the end as the final caption.
