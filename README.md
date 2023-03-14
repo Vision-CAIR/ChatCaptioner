@@ -7,6 +7,8 @@ ChatCaptioner enrichs the image caption of BLIP-2 by
 prompting ChatGPT to keep asking informative questions to BLIP-2 
 and summarize the conversation at the end as the final caption.
 
+See our paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions](https://arxiv.org/abs/2303.06594)
+
 ## Demo
 ![demo1](demo_pic/demo1.gif)
 ![demo2](demo_pic/demo2.gif)
