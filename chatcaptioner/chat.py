@@ -8,6 +8,7 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )  # for exponential backoff
+import gradio as gr
 
 from chatcaptioner.blip2 import Blip2
 from chatcaptioner.utils import print_info, plot_img
@@ -122,50 +123,63 @@ def call_chatgpt(chatgpt_messages, max_tokens=40, model="gpt-3.5-turbo"):
     return reply, total_tokens
 
 
-def ask_questions(img, blip2, model, n_rounds=10, max_gpt_token=30, n_blip2_context=-1, print_mode='no'):
-    questions = []
-    answers = []
-    total_tokens = 0
-    
-    if print_mode == 'chat':
-        print('--------Chat Starts----------')
-        
-    for i in tqdm(range(n_rounds), desc='Chat Rounds', disable=print_mode!='bar'):
-        if i == 0:
+class AskQuestions():
+
+    def __init__(self, img, blip2, model, max_gpt_token=30, n_blip2_context=-1):
+        self.img = img
+        self.blip2 = blip2
+        self.model = model
+        self.max_gpt_token = max_gpt_token
+        self.n_blip2_context = n_blip2_context
+
+        self.questions = []
+        self.answers = []
+        self.total_tokens = 0
+
+    def reset(self, img):
+        self.img = img
+        self.questions = []
+        self.answers = []
+        self.total_tokens = 0
+
+    def ask_question(self):
+        if len(self.questions) == 0:
             # first question is given by human to request a general discription
             question = FIRST_QUESTION
         else:
-            if model in VALID_CHATGPT_MODELS:
+            if self.model in VALID_CHATGPT_MODELS:
                 chatgpt_messages = prepare_chatgpt_message(
-                    QUESTION_INSTRUCTION, 
-                    questions, answers, 
+                    QUESTION_INSTRUCTION,
+                    self.questions, self.answers,
                     SUB_QUESTION_INSTRUCTION
                 )
-                question, n_tokens = call_chatgpt(chatgpt_messages, model=model, max_tokens=max_gpt_token)
-            elif model in VALID_GPT3_MODELS:
+                question, n_tokens = call_chatgpt(chatgpt_messages, model=self.model, max_tokens=self.max_gpt_token)
+            elif self.model in VALID_GPT3_MODELS:
                 # prepare the context for GPT3
                 gpt3_prompt = prepare_gpt_prompt(
-                    QUESTION_INSTRUCTION, 
-                    questions, answers, 
+                    QUESTION_INSTRUCTION,
+                    self.questions, self.answers,
                     SUB_QUESTION_INSTRUCTION
                 )
 
-                question, n_tokens = call_gpt3(gpt3_prompt, model=model, max_tokens=max_gpt_token)
-            elif isinstance(model, Blip2):
+                question, n_tokens = call_gpt3(gpt3_prompt, model=self.model, max_tokens=self.max_gpt_token)
+            elif isinstance(self.model, Blip2):
                 # prepare the context for other LLM
                 gpt_prompt = prepare_gpt_prompt(
-                    QUESTION_INSTRUCTION, 
-                    questions, answers, 
+                    QUESTION_INSTRUCTION,
+                    self.questions, self.answers,
                     SUB_QUESTION_INSTRUCTION
                 )
-                n_tokens = 0 # local model. no token cost on OpenAI API.
-                question = model.call_llm(gpt_prompt)
+                n_tokens = 0  # local model. no token cost on OpenAI API.
+                question = self.model.call_llm(gpt_prompt)
             else:
-                raise ValueError('{} is not a valid question model'.format(model))
-                
-            total_tokens = total_tokens + n_tokens
-            
-        # print('Raw: {}'.format(question))
+                raise ValueError('{} is not a valid question model'.format(self.model))
+
+            self.total_tokens = self.total_tokens + n_tokens
+
+        return question
+
+    def question_trim(self, question):
         question = question.split('Question: ')[-1].replace('\n', ' ').strip()
         if 'Answer:' in question:  # Some models make up an answer after asking. remove it
             q, a = question.split('Answer:')[:2]
@@ -173,29 +187,49 @@ def ask_questions(img, blip2, model, n_rounds=10, max_gpt_token=30, n_blip2_cont
                 question = a.strip()
             else:
                 question = q.strip()
-        
-        questions.append(question)
-        if print_mode == 'chat':
-            print('GPT-3: {}'.format(question))
-        
+        return question
+
+    def answer_question(self):
         # prepare the context for blip2
-        blip2_prompt = '\n'.join([ANSWER_INSTRUCTION, 
-                                  get_chat_log(questions, answers, last_n=n_blip2_context), 
+        blip2_prompt = '\n'.join([ANSWER_INSTRUCTION,
+                                  get_chat_log(self.questions, self.answers, last_n=self.n_blip2_context),
                                   SUB_ANSWER_INSTRUCTION])
-        
-        answer = blip2.ask(img, blip2_prompt)
-        # small blip2 models may ask itself a new bad question. remove it and trim the answer
+
+        answer = self.blip2.ask(self.img, blip2_prompt)
+        return answer
+
+    def answer_trim(self, answer):
         answer = answer.split('Question:')[0].replace('\n', ' ').strip()
-        
+        return answer
+
+    def chatting(self, n_rounds, print_mode):
         if print_mode == 'chat':
-            print('BLIP-2: {}'.format(answer))
-        answers.append(answer)
-        blip2_prompt = '{} {}'.format(blip2_prompt, answer)
-    
-    if print_mode == 'chat':
-        print('--------Chat Ends----------')
-    
-    return questions, answers, total_tokens
+            print('--------Chat Starts----------')
+
+        for i in tqdm(range(n_rounds), desc='Chat Rounds', disable=print_mode != 'bar'):
+            question = self.ask_question()
+            # print('Raw: {}'.format(question))
+            question = self.question_trim(question)
+            self.questions.append(question)
+
+            if print_mode == 'chat':
+                print('GPT-3: {}'.format(question))
+            elif print_mode == 'gradio':
+                gr_chatbot = gr_chatbot + [[question, None]]
+
+            answer = self.answer_question()
+            answer = self.answer_trim(answer)
+            self.answers.append(answer)
+
+            if print_mode == 'chat':
+                print('BLIP-2: {}'.format(answer))
+            elif print_mode == 'gradio':
+                self.gr_chatbot[-1][1] = answer
+
+        if print_mode == 'chat':
+            print('--------Chat Ends----------')
+
+        return self.questions, self.answers, self.total_tokens
 
 
 def summarize_chat(questions, answers, model, max_gpt_token=100):
@@ -228,8 +262,6 @@ def summarize_chat(questions, answers, model, max_gpt_token=100):
     return summary, summary_prompt, n_tokens
 
 
-
-
 def caption_image(blip2, image, model, n_rounds=10, n_blip2_context=-1, print_mode='no'):
     if model == 'gpt3':
         model = 'text-davinci-003'
@@ -237,13 +269,13 @@ def caption_image(blip2, image, model, n_rounds=10, n_blip2_context=-1, print_mo
         model = 'gpt-3.5-turbo'
     
     results = {}
-    questions, answers, n_token_chat = ask_questions(
-        image, 
-        blip2, 
-        n_rounds=n_rounds, 
-        n_blip2_context=n_blip2_context, 
-        model=model,
-        print_mode=print_mode)
+    chat = AskQuestions(image,
+                        blip2,
+                        n_blip2_context=n_blip2_context,
+                        model=model)
+
+    questions, answers, n_token_chat = chat.chatting(n_rounds, print_mode=print_mode)
+
     summary, summary_prompt, n_token_sum = summarize_chat(questions, answers, model=model)
     results['ChatCaptioner'] = {'caption': summary, 'chat': summary_prompt, 'n_token': n_token_chat + n_token_sum}
     results['BLIP2+OurPrompt'] = {'caption': answers[0]}

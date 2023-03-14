@@ -46,3 +46,4 @@ dependencies:
     - sentence-transformers
     - umap-learn
     - notebook
+    - gradio

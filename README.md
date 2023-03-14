@@ -20,26 +20,9 @@ See our paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enric
 
 
 ## Installation
+Note that you need a GPU with 24G memory to run ChatCaptioner due to the size of BLIP-2.
 
-To start download our dataset samples from [here](https://drive.google.com/file/d/19yQP9lepLeS2_vSHnYPeOdfQz8OI1e6V/view?usp=share_link) and extract the zip file to the root folder.
-After the extraction, the datafolder should look like this
-
-```
-.
-├── chatcaptioner
-├── datasets
-│   ├── artemis
-│   ├── coco_val
-│   └── cc_val
-│       ├── annotation.yaml
-│       └── img
-│           ├── annotation.yaml
-│           ├── 85.jpg
-│           ...
-├── caption.ipynb
-...   
-```
-
+To start, git clone this repository first.
 
 To install and activate the environment, run the following command:
 
@@ -64,11 +47,35 @@ python -m ipykernel install --user --name=chatcap
 ```
 
 
+Download our dataset samples from [here](https://drive.google.com/file/d/19yQP9lepLeS2_vSHnYPeOdfQz8OI1e6V/view?usp=share_link) and extract the zip file to the root folder.
+After the extraction, the datafolder should look like this. You can skip this step if you only want to run demo.py with your own images.
+
+```
+.
+├── chatcaptioner
+├── datasets
+│   ├── artemis
+│   ├── coco_val
+│   └── cc_val
+│       ├── annotation.yaml
+│       └── img
+│           ├── annotation.yaml
+│           ├── 85.jpg
+│           ...
+├── caption.ipynb
+...   
+```
+
+
+
+
 ## Usage
-To play with ChatCaptioner with a given image, check the jupyter script 'caption_demo.ipynb'
+To play with ChatCaptioner with a given image, run the following command. It will use GPU 0.
+```
+python demo.py
+```
 
 To play with ChatCaptioner with a few dataset samples, check the jupyter script 'caption.ipynb'.
-
 
 To caption all the images in the datasets, run 'main_caption.py'. 
 Using --exp_tag to tag your runs and using --datasets to specify the datasets you want to caption. 
