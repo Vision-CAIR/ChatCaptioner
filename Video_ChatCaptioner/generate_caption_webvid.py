@@ -23,7 +23,7 @@ VIDEO_LIMIT=int(sys.argv[4])
 
 
 
-openai_key = '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'  # this is Jun's account
+openai_key = ''
 set_openai_key(openai_key)
 blip2s = {
     'FlanT5 XXL': Blip2('FlanT5 XXL', device_id=0, bit8=True)

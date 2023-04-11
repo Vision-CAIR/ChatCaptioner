@@ -20,7 +20,7 @@ VIDEO_LIMIT=int(sys.argv[4])
 
 
 
-openai_key = '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'  # this is Jun's account
+openai_key = ''  
 set_openai_key(openai_key)
 
 
