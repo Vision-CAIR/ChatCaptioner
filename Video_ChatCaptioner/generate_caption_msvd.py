@@ -20,8 +20,6 @@ VIDEO_LIMIT=int(sys.argv[4])
 
 
 
-openai_key = ''  
-set_openai_key(openai_key)
 
 
 blip2s = {
