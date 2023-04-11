@@ -5,13 +5,13 @@ Official repository of **ChatCaptioner**. and **Video ChatCaptioner**
 See our paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions](https://arxiv.org/abs/2303.06594) and our paper [Video ChatCaptioner: Towards the Enriched Spatiotemporal Descriptions](https://arxiv.org/abs/2304.04227)
 
 ## Demo
-![demo1](chatcaptioner/demo_pic/demo1.gif)
-![demo2](Image_ChatCaptioner/demo_pic/demo2.gif)
+![demo1](ChatCaptioner/demo_pic/demo1.gif)
+![demo2](ChatCaptioner/demo_pic/demo2.gif)
 
 
 
 * ChatCaptiners:
-     * ChatCaptioner for images: [ChatCaptioner](https://github.com/ChatCaptioner/chatcaptioner/README.md)
+     * ChatCaptioner for images: [ChatCaptioner](https://github.com/ChatCaptioner/ChatCaptioner/README.md)
      * ChatCaptioner for videos: [Video ChatCaptioner](https://github.com/ChatCaptioner/Video_ChatCaptioner/README.md)
 
 
