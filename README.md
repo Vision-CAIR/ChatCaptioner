@@ -13,8 +13,8 @@ Video ChatCaptioner paper [Video ChatCaptioner: Towards the Enriched Spatiotempo
 
 
 * ChatCaptiners:
-     * ChatCaptioner for images: [ChatCaptioner](https://github.com/ChatCaptioner/ChatCaptioner/README.md)
-     * ChatCaptioner for videos: [Video ChatCaptioner](https://github.com/ChatCaptioner/Video_ChatCaptioner/README.md)
+     * ChatCaptioner for images: [ChatCaptioner](ChatCaptioner/README.md)
+     * ChatCaptioner for videos: [Video ChatCaptioner](Video_ChatCaptioner/README.md)
 
 
 
