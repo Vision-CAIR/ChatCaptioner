@@ -2,7 +2,9 @@
 
 Official repository of **ChatCaptioner**. and **Video ChatCaptioner**
 
-See our paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions](https://arxiv.org/abs/2303.06594) and our paper [Video ChatCaptioner: Towards the Enriched Spatiotemporal Descriptions](https://arxiv.org/abs/2304.04227)
+ChatCaptioner paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions](https://arxiv.org/abs/2303.06594) 
+
+Video ChatCaptioner paper [Video ChatCaptioner: Towards the Enriched Spatiotemporal Descriptions](https://arxiv.org/abs/2304.04227)
 
 ## Demo
 ![demo1](ChatCaptioner/demo_pic/demo1.gif)
