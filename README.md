@@ -25,7 +25,7 @@ Video ChatCaptioner paper [Video ChatCaptioner: Towards the Enriched Spatiotempo
 + [BLIP2](https://huggingface.co/docs/transformers/main/model_doc/blip-2)
 
 
-Please cite ChatCaptioner from the following bibtex
+Please cite ChatCaptioner and Video ChatCaptioner from the following bibtex
 
 ```
 @article{zhu2023chatgpt,

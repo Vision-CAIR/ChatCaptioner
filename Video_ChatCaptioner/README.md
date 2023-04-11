@@ -71,3 +71,14 @@ python main_caption.py --exp_tag test --datasets cc_val artemis  --device_id 0
 + [ChatGPT](https://openai.com/blog/chatgpt/)
 + [BLIP2](https://huggingface.co/docs/transformers/main/model_doc/blip-2)
 
+Please cite Video ChatCaptioner from the following bibtex
+
+
+```
+@article{chen2023video,
+      title={Video ChatCaptioner: Towards the Enriched Spatiotemporal Descriptions}, 
+      author={Jun Chen and Deyao Zhu and Kilichbek Haydarov and Xiang Li and Mohamed Elhoseiny},
+      journal={arXiv preprint arXiv:2304.04227},
+      year={2023}
+}
+```
