@@ -11,8 +11,8 @@ See our paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enric
 
 
 * ChatCaptiners:
-     * ChatCaptioner for images: [ChatCaptioner](https://github.com/ChatCaptioner/chatcaptioner_image/README.md)
-     * ChatCaptioner for videos: [Video ChatCaptioner](https://github.com/ChatCaptioner/chatcaptioner_video/README.md)
+     * ChatCaptioner for images: [ChatCaptioner](https://github.com/ChatCaptioner/chatcaptioner/README.md)
+     * ChatCaptioner for videos: [Video ChatCaptioner](https://github.com/ChatCaptioner/Video_ChatCaptioner/README.md)
 
 
 
