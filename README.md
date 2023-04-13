@@ -9,6 +9,8 @@ Video ChatCaptioner paper [Video ChatCaptioner: Towards the Enriched Spatiotempo
 ## Demo
 ![demo1](ChatCaptioner/demo_pic/demo1.gif)
 ![demo2](ChatCaptioner/demo_pic/demo2.gif)
+![demo3](Video_ChatCaptioner/demo_pic/dance.gif)
+![demo4](Video_ChatCaptioner/demo_pic/skating.gif)
 
 
 

@@ -5,8 +5,8 @@ Official repository of **Video ChatCaptioner**.
 See our paper [Video ChatCaptioner: Towards the Enriched Spatiotemporal Descriptions](https://arxiv.org/abs/2304.04227)
 
 <!-- ## Demo -->
-<!-- ![demo1](demo_pic/demo1.gif) -->
-<!-- ![demo2](demo_pic/demo2.gif) -->
+![demo1](demo_pic/dance.gif)
+![demo2](demo_pic/skating.gif)
 
 
 ## System Architecture
