@@ -1,6 +1,6 @@
 # Interactive ChatCaptioner for image and video
 
-Official repository of **ChatCaptioner**. and **Video ChatCaptioner**
+Official repository of **ChatCaptioner** and **Video ChatCaptioner**.
 
 ChatCaptioner paper [ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions](https://arxiv.org/abs/2303.06594) 
 
