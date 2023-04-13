@@ -32,7 +32,7 @@ Please cite ChatCaptioner and Video ChatCaptioner from the following bibtex
 ```
 @article{zhu2023chatgpt,
   title={ChatGPT Asks, BLIP-2 Answers: Automatic Questioning Towards Enriched Visual Descriptions},
-  author={Zhu, Deyao and Chen, Jun and Haydarov, Kilichbek and Shen, Xiaoqian and Zhang, Wenxuan and Elhoseiny, Mohamed},
+  author={Deyao Zhu and Jun Chen and Kilichbek Haydarov and Xiaoqian Shen and Wenxuan Zhang and Mohamed Elhoseiny},
   journal={arXiv preprint arXiv:2303.06594},
   year={2023}
 }
